@@ -242,47 +242,49 @@ def _(defaultdict, ol, os, svg_to_data_url):
     return (create_map_from_data,)
 
 
-@app.cell(column=1)
-def _(mo):
+app._unparsable_cell(
+    r"""
 
     logos = mo.hstack(
         [
             mo.vstack(
                 [
-                    mo.image(src="./logos/logo-delfin.webp", width=150, height=150),
-                    mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
+                    mo.image(src= \"<img src=\"public/logos/logo-delfin.webp\" width=\"200\" />\", width=150, height=150),
+                    mo.md(\"[Programa Delfín](https://www.programadelfin.org.mx/)\")
                 ],
-                align="center",
+                align=\"center\",
             ),
             mo.vstack(
                 [
-                    mo.image(src="./logos/logo-unison.webp", width=130, height=150),
-                    mo.md("[UNISON](https://www.unison.mx/)")
+                    mo.image(src=\"<img src=\"public/logo.png\" width=\"200\" />\", width=130, height=150),
+                    mo.md(\"[UNISON](https://www.unison.mx/)\")
                 ],
-                align="center",
+                align=\"center\",
             ),
             mo.vstack(
                 [
-                    mo.image(src="./logos/logo-DLL.webp", width=150, height=150),
-                    mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
+                    mo.image(src=\"./logos/logo-DLL.webp\", width=150, height=150),
+                    mo.md(\"[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)\")
                 ],
-                align="center",
+                align=\"center\",
             ),
         ],
-        justify="center",
+        justify=\"center\",
         gap=5,
     )
 
     mo.md(
-        f"""
-        <div style="background-color: #F1F5F9; padding: 10px; border-radius: 5px 20px 5px;">
+        f\"\"\"
+        <div style=\"background-color: #F1F5F9; padding: 10px; border-radius: 5px 20px 5px;\">
             {logos}
         </div>
-        """
+        \"\"\"
     )
 
 
-    return
+    """,
+    column=1, disabled=False, hide_code=False, name="_"
+)
 
 
 @app.cell
@@ -318,9 +320,9 @@ def _():
     This research project emerged from the intersection of corpus linguistics, data science, and information visualization. The initial goal was to use the WOLD dataset to quantify and analyze the impact of Spanish as a donor language, seeking to identify the recipient languages that have been most influenced by its lexicon. However, during preliminary exploration, it became clear that the very structure and state of the dataset represented a research problem in itself. Therefore, the problem statement was expanded to address two interconnected questions:
 
     1. According to WOLD data, which languages act as the biggest "exporters" and "importers" of loanwords globally?
-    
+
     2. What methodological challenges and data integrity issues arise when using a large-scale corpus like WOLD for this type of analysis, and how can they be addressed using modern computational tools?
-    
+
     """
 
     Methodology = f"""
@@ -332,13 +334,13 @@ def _():
     This study was developed following a computational and quantitative research approach, implemented in a modern data science environment. The methodological process was divided into the following key phases:
 
     DATA ACQUISITION AND PREPARATION: Version 4.1 of the World Loanword Database (WOLD) was used, obtained from its official GitHub repository to ensure access to the most up-to-date version, overcoming an initial discrepancy with the outdated version on the main website. The analysis focused on the borrowings.csv[^CSV file] and languages.csv files. Data processing and manipulation were performed in a Marimo[^Marimo] notebook using the Python library Polars[^Polars], which was selected for its efficiency in handling large datasets. An initial inspection of data quality revealed that columns such as Source_Form_ID (completely null) and Comment (sparsely populated) did not provide relevant information and were therefore excluded from the analysis.
-    
+
 
     METHODOLOGICAL PIVOT AND REDEFINITION OF OBJECTIVE: An initial objective to analyze the chronology of loanword adoption was explored. This approach was discarded due to the qualitative and ambiguous nature of the Age column found in other corpus files (with values like 'Late Old Japanese' or 'recent loan'), which prevented a rigorous quantitative temporal analysis. Consequently, the research objective was redefined to identify and visualize the languages with the greatest influence as lexical "exporters" (donors) and "importers" (recipients), based on the diversity of their interactions.
-    
+
 
     QUANTITATIVE ANALYSIS OF LINGUISTIC INFLUENCE: To determine the main "exporting" languages, the dataset was grouped by the Source_languoid (donor language) column, and a count of unique destination languages was performed. Similarly, to identify the "importing" languages, the data was grouped by the destination language, and the number of unique Source_languoid was counted. The five languages with the highest values in each category were isolated into new dataframes for subsequent visualization.
-    
+
 
     GEOGRAPHIC VISUALIZATION AND DATA ENRICHMENT: Creating the final geographic visualizations involved several technical steps. The py-openlayers[^py-openlayers] library was used to generate dynamic and interactive maps, highlighting the use of large language models (LLMs)[^LLM] as an aid for generating and debugging Python[^Python] code. A critical lack of latitude and longitude data was detected in WOLD's languages.csv file, which was addressed through a three step data enrichment process: first, the Glottolog[^Glotolog] database was integrated to add coordinates for 52 languages; second, estimated coordinates for the remaining 72 languages (many of them extinct) were generated using an LLM[^LLM]; and third, the complete geographic dataset was consolidated into GeoJSON[^GeoJSON] format. Finally, custom map markers were designed with matplotlib.pyplot[^Matplotlib], converted to Base64[^base64] format, and integrated as vector layers into the maps.    
 
@@ -364,23 +366,23 @@ def _():
     The quantitative analysis of the WOLD corpus made it possible to identify two main groups of languages based on their role in lexical loan transfer:
 
     - **Main "Exporting" Languages** (those that have contributed loans to the largest number of different languages): English, French, Portuguese, Spanish, and Arabic.
-    
+
     - **Main "Importing" Languages** (those that have received loans from the largest number of diverse sources): English, Selice Romani, Indonesian, Romanian, and Japanese.
-    
+
 
     **Conclusions and Interpretation:**
 
     1. **Historical and Power Correlation:** A strong correlation is observed between the main "exporting" languages and their history as centers of colonial, political, or commercial power. Their documented global lexical influence is a direct reflection of their historical expansion.
-    
+
     2. **Complex Contact Patterns:** The "importing" languages reveal more diverse and multifaceted contact patterns. The case of Indonesian, for example, suggests that a high diversity of loans may be the product of a historical position as a key nexus on global trade routes. English, for its part, stands out by appearing on both lists, demonstrating its dual role as a global donor and an active recipient, integrating and disseminating loans throughout the Anglosphere.
-    
+
     3. **Critique of Data Sources as the Main Finding:** Perhaps the most significant conclusion of the study is the critique of the inherent limitations of large linguistic datasets like WOLD. The research process revealed critical shortcomings, such as the absence of geographical data for most of the referenced languages, which demanded a complex process of external data enrichment.
-    
+
     4. **Methodological Biases in Representation:** It is postulated that WOLD's attribution methodology, which prioritizes the ultimate etymological origin of a loan, may oversimplify contact networks by obscuring intermediate transmission routes. Likewise, the notable difference in data density between the map of "importing" languages and that of "exporting" languages suggests that the current corpus underrepresents the true extent of the influence of donor languages.
-    
+
 
     In summary, this work not only visualizes patterns of language contact but also underscores the urgent need to develop digital linguistic corpora that are more complete, diversified, and methodologically transparent to enable more robust and reliable analyses in the future.
-    
+
     """
 
     References = f"""
