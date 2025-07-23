@@ -77,10 +77,12 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 
 @app.cell
-def _(json):
-    with open("map2.geojson", "r", encoding="utf-8") as f:
+def _(json, mo):
+
+
+    with open( mo.notebook_location() / "public" / "map1.geojson", "r", encoding="utf-8") as f:
         map2 = json.load(f)
-    with open("map1.geojson", "r", encoding="utf-8") as f:
+    with open(mo.notebook_location() / "public" / "map2.geojson", "r", encoding="utf-8") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
     icon_map2 = "./icon_map2/"
