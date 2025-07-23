@@ -1,0 +1,545 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0,
+          52.5
+        ]
+      },
+      "properties": {
+        "from_language": "Dutch",
+        "icon_file": "English_French_Portuguese_Spanish.svg",
+        "details": "English: 23, French: 111, Portuguese: 4, Spanish: 10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.0,
+          34.0
+        ]
+      },
+      "properties": {
+        "from_language": "Mandarin Chinese",
+        "icon_file": "Arabic_English.svg",
+        "details": "Arabic: 2, English: 4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.5,
+          19.5833
+        ]
+      },
+      "properties": {
+        "from_language": "Hawaiian",
+        "icon_file": "English_French_Portuguese_Spanish.svg",
+        "details": "English: 178, French: 7, Portuguese: 2, Spanish: 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.8333,
+          20.1667
+        ]
+      },
+      "properties": {
+        "from_language": "Otomi",
+        "icon_file": "Spanish.svg",
+        "details": "Spanish: 212"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.0,
+          46.0
+        ]
+      },
+      "properties": {
+        "from_language": "Romanian",
+        "icon_file": "Arabic_English_French_Portuguese_Spanish.svg",
+        "details": "Arabic: 9, English: 5, French: 335, Portuguese: 1, Spanish: 5"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          47.0,
+          -20.0
+        ]
+      },
+      "properties": {
+        "from_language": "Malagasy",
+        "icon_file": "Arabic_English_French_Portuguese.svg",
+        "details": "Arabic: 14, English: 28, French: 91, Portuguese: 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.8333,
+          16.0
+        ]
+      },
+      "properties": {
+        "from_language": "Q'eqchi'",
+        "icon_file": "Portuguese_Spanish.svg",
+        "details": "Portuguese: 1, Spanish: 189"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.25,
+          28.0
+        ]
+      },
+      "properties": {
+        "from_language": "Manange",
+        "icon_file": "English.svg",
+        "details": "English: 13"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.0,
+          16.0
+        ]
+      },
+      "properties": {
+        "from_language": "Thai",
+        "icon_file": "English_French_Portuguese.svg",
+        "details": "English: 41, French: 2, Portuguese: 2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.5,
+          10.5
+        ]
+      },
+      "properties": {
+        "from_language": "Vietnamese",
+        "icon_file": "English_French.svg",
+        "details": "English: 5, French: 19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.667,
+          -17.6667
+        ]
+      },
+      "properties": {
+        "from_language": "Gurindji",
+        "icon_file": "English.svg",
+        "details": "English: 28"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.9609,
+          48.091
+        ]
+      },
+      "properties": {
+        "from_language": "Selice Romani",
+        "icon_file": "Arabic_English_French.svg",
+        "details": "Arabic: 6, English: 1, French: 8"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -56.0,
+          5.5
+        ]
+      },
+      "properties": {
+        "from_language": "Kali'na",
+        "icon_file": "French_Portuguese_Spanish.svg",
+        "details": "French: 31, Portuguese: 6, Spanish: 34"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.0,
+          62.0
+        ]
+      },
+      "properties": {
+        "from_language": "Sakha",
+        "icon_file": "Arabic.svg",
+        "details": "Arabic: 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0,
+          52.0
+        ]
+      },
+      "properties": {
+        "from_language": "English",
+        "icon_file": "Arabic_French_Portuguese_Spanish.svg",
+        "details": "Arabic: 8, French: 189, Portuguese: 4, Spanish: 18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.0,
+          0.333333
+        ]
+      },
+      "properties": {
+        "from_language": "Imbabura Quechua",
+        "icon_file": "Portuguese_Spanish.svg",
+        "details": "Portuguese: 1, Spanish: 339"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -55.5,
+          4.5
+        ]
+      },
+      "properties": {
+        "from_language": "Saramaccan",
+        "icon_file": "English_French.svg",
+        "details": "English: 3, French: 4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.0,
+          0.0
+        ]
+      },
+      "properties": {
+        "from_language": "Indonesian",
+        "icon_file": "Arabic_English_French_Portuguese_Spanish.svg",
+        "details": "Arabic: 109, English: 34, French: 24, Portuguese: 25, Spanish: 4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.5833,
+          -22.5
+        ]
+      },
+      "properties": {
+        "from_language": "Wich\u00ed",
+        "icon_file": "Portuguese_Spanish.svg",
+        "details": "Portuguese: 2, Spanish: 177"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.8333,
+          42.0
+        ]
+      },
+      "properties": {
+        "from_language": "Archi",
+        "icon_file": "Arabic.svg",
+        "details": "Arabic: 46"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.0,
+          12.0
+        ]
+      },
+      "properties": {
+        "from_language": "Hausa",
+        "icon_file": "Arabic_English_French.svg",
+        "details": "Arabic: 168, English: 91, French: 27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0,
+          26.0
+        ]
+      },
+      "properties": {
+        "from_language": "White Hmong",
+        "icon_file": "English_French.svg",
+        "details": "English: 2, French: 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.1667,
+          42.0833
+        ]
+      },
+      "properties": {
+        "from_language": "Bezhta",
+        "icon_file": "Arabic_French.svg",
+        "details": "Arabic: 63, French: 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.3333,
+          51.75
+        ]
+      },
+      "properties": {
+        "from_language": "Lower Sorbian",
+        "icon_file": "English_French.svg",
+        "details": "English: 1, French: 4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.0,
+          -38.0
+        ]
+      },
+      "properties": {
+        "from_language": "Mapudungun",
+        "icon_file": "Portuguese_Spanish.svg",
+        "details": "Portuguese: 1, Spanish: 239"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0,
+          12.0
+        ]
+      },
+      "properties": {
+        "from_language": "Kanuri",
+        "icon_file": "Arabic_English_French.svg",
+        "details": "Arabic: 166, English: 73, French: 11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.25,
+          0.166667
+        ]
+      },
+      "properties": {
+        "from_language": "Hup",
+        "icon_file": "Portuguese.svg",
+        "details": "Portuguese: 86"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.5,
+          -4.75
+        ]
+      },
+      "properties": {
+        "from_language": "Seychelles Creole",
+        "icon_file": "Arabic_English_French_Portuguese_Spanish.svg",
+        "details": "Arabic: 1, English: 93, French: 152, Portuguese: 7, Spanish: 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          146.0,
+          -4.66667
+        ]
+      },
+      "properties": {
+        "from_language": "Takia",
+        "icon_file": "English_Portuguese.svg",
+        "details": "English: 241, Portuguese: 2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.0,
+          34.5
+        ]
+      },
+      "properties": {
+        "from_language": "Tarifiyt Berber",
+        "icon_file": "French_Spanish.svg",
+        "details": "French: 39, Spanish: 80"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.456,
+          3.8807
+        ]
+      },
+      "properties": {
+        "from_language": "Ceq Wong",
+        "icon_file": "Arabic_English_Spanish.svg",
+        "details": "Arabic: 1, English: 4, Spanish: 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -92.8333,
+          16.8333
+        ]
+      },
+      "properties": {
+        "from_language": "Zinacant\u00e1n Tzotzil",
+        "icon_file": "English_Spanish.svg",
+        "details": "English: 1, Spanish: 193"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.0,
+          -6.5
+        ]
+      },
+      "properties": {
+        "from_language": "Swahili",
+        "icon_file": "Arabic_English_French_Portuguese.svg",
+        "details": "Arabic: 358, English: 80, French: 3, Portuguese: 23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          140.0,
+          37.0
+        ]
+      },
+      "properties": {
+        "from_language": "Japanese",
+        "icon_file": "Arabic_English_French_Portuguese_Spanish.svg",
+        "details": "Arabic: 5, English: 126, French: 4, Portuguese: 4, Spanish: 2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -110.25,
+          27.5
+        ]
+      },
+      "properties": {
+        "from_language": "Yaqui",
+        "icon_file": "English_Portuguese_Spanish.svg",
+        "details": "English: 1, Portuguese: 1, Spanish: 366"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.25,
+          5.5
+        ]
+      },
+      "properties": {
+        "from_language": "Gawwada",
+        "icon_file": "Arabic_English_French.svg",
+        "details": "Arabic: 1, English: 8, French: 3"
+      }
+    }
+  ]
+}

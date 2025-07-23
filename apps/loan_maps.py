@@ -76,21 +76,23 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
     return
 
 
-@app.cell
-def _(json, mo):
+app._unparsable_cell(
+    r"""
 
 
-    with open( mo.notebook_location() / "public" / "map1.geojson", "r", encoding="utf-8") as f:
+    with open(mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"map1.geojson\", \"r\", encoding=\"utf-8\") as f:
         map2 = json.load(f)
-    with open(mo.notebook_location() / "public" / "map2.geojson", "r", encoding="utf-8") as f:
+    with open(mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"map2.geojson\", \"r\", encoding=\"utf-8\") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
-    icon_map2 = "./icon_map2/"
-    icon_map1 = "./icon_map1/"
+    icon_map2 = mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"icon_map2\" /
+    icon_map1 = mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"icon_map1\" /
 
-    tooltip_map2 = "<strong>Name:</strong><br>{{from_language}}<br><strong>Gave to:</strong><br>{{details}}"
-    tooltip_map1 = "<strong>Name:</strong><br>{{from_language}}<br><strong>Received from:</strong><br>{{details}}"
-    return icon_map1, icon_map2, map1, map2, tooltip_map1, tooltip_map2
+    tooltip_map2 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Gave to:</strong><br>{{details}}\"
+    tooltip_map1 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Received from:</strong><br>{{details}}\"
+    """,
+    name="_"
+)
 
 
 @app.cell
@@ -98,7 +100,7 @@ def _():
     import marimo as mo
     import openlayers as ol
     import json
-    return json, mo, ol
+    return mo, ol
 
 
 @app.cell
@@ -251,7 +253,7 @@ app._unparsable_cell(
         [
             mo.vstack(
                 [
-                    mo.image(src= \"<img src=\"public/logos/logo-delfin.webp\" width=\"200\" />\", width=150, height=150),
+                    mo.image(src=\"<img src=\"public/logo.png\" width=\"200\" />, width=150, height=150),
                     mo.md(\"[Programa Delfín](https://www.programadelfin.org.mx/)\")
                 ],
                 align=\"center\",
