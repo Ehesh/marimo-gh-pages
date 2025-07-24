@@ -248,7 +248,7 @@ def _(defaultdict, ol, os, svg_to_data_url):
 
 app._unparsable_cell(
     r"""
-    mo.image(img src=\"public/logo.png\" width=\"200\")
+    mo.image(src=\"public/logo.png\")
     """,
     column=1, disabled=False, hide_code=False, name="_"
 )
@@ -256,7 +256,7 @@ app._unparsable_cell(
 
 app._unparsable_cell(
     r"""
-    mo.image(img src=\"public/logo.png\" width=\"200\")
+    mo.image(src=\"public/Assets/D_loan/logos/logo-delfin.webp")
     """,
     name="_"
 )
