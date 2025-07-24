@@ -78,15 +78,14 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 app._unparsable_cell(
     r"""
-
-
-    with open(mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"map1.geojson\", \"r\", encoding=\"utf-8\") as f:
+    s
+    with open(\"public/Assets/D_loan/map1.geojson", \"r\", encoding=\"utf-8\") as f:
         map2 = json.load(f)
-    with open(mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"map2.geojson\", \"r\", encoding=\"utf-8\") as f:
+    with open(\"public/Assets/D_loan/map2.geojson") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
-    icon_map2 = mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"icon_map2\" /
-    icon_map1 = mo.notebook_location() / \"public\" / \"Assets\" / \"D_loan\" / \"icon_map1\" /
+    icon_map2 = \"public/Assets/D_loan/icon_map2"
+    icon_map1 = \"public/Assets/D_loan/icon_map1"
 
     tooltip_map2 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Gave to:</strong><br>{{details}}\"
     tooltip_map1 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Received from:</strong><br>{{details}}\"
@@ -246,21 +245,6 @@ def _(defaultdict, ol, os, svg_to_data_url):
     return (create_map_from_data,)
 
 
-app._unparsable_cell(
-    r"""
-    mo.image(src=\"public/logo.png\")
-    """,
-    column=1, disabled=False, hide_code=False, name="_"
-)
-
-
-app._unparsable_cell(
-    r"""
-    mo.image(src=\"public/Assets/D_loan/logos/logo-delfin.webp")
-    """,
-    name="_"
-)
-
 
 @app.cell
 def _(mo):
@@ -268,21 +252,21 @@ def _(mo):
         [
             mo.vstack(
                 [
-                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
                     mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
+                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
                     mo.md("[UNISON](https://www.unison.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
+                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
                     mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
                 ],
                 align="center",
