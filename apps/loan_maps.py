@@ -78,7 +78,7 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 app._unparsable_cell(
     r"""
-    s
+    
     with open("./public/Assets/D_loan/map1.geojson", \"r\", encoding=\"utf-8\") as f:
         map2 = json.load(f)
     with open("./public/Assets/D_loan/map2.geojson") as f:
@@ -252,7 +252,7 @@ def _(mo):
         [
             mo.vstack(
                 [
-                    mo.image(src="public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.image(src="./public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
                     mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
                 align="center",
@@ -266,7 +266,7 @@ def _(mo):
             ),
             mo.vstack(
                 [
-                    mo.image(src="/public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
+                    mo.image(src="./public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
                     mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
                 ],
                 align="center",
