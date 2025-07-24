@@ -248,47 +248,60 @@ def _(defaultdict, ol, os, svg_to_data_url):
 
 app._unparsable_cell(
     r"""
+    mo.image(img src=\"public/logo.png\" width=\"200\")
+    """,
+    column=1, disabled=False, hide_code=False, name="_"
+)
 
+
+app._unparsable_cell(
+    r"""
+    mo.image(img src=\"public/logo.png\" width=\"200\")
+    """,
+    name="_"
+)
+
+
+@app.cell
+def _(mo):
     logos = mo.hstack(
         [
             mo.vstack(
                 [
-                    mo.image(src=\"<img src=\"public/logo.png\" width=\"200\" />, width=150, height=150),
-                    mo.md(\"[Programa Delfín](https://www.programadelfin.org.mx/)\")
+                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
-                align=\"center\",
+                align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src=\"<img src=\"public/logo.png\" width=\"200\" />\", width=130, height=150),
-                    mo.md(\"[UNISON](https://www.unison.mx/)\")
+                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
+                    mo.md("[UNISON](https://www.unison.mx/)")
                 ],
-                align=\"center\",
+                align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src=\"./logos/logo-DLL.webp\", width=150, height=150),
-                    mo.md(\"[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)\")
+                    mo.image(src="https://raw.githubusercontent.com/Ehesh/marimo-gh-pages-template/main/apps/public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
+                    mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
                 ],
-                align=\"center\",
+                align="center",
             ),
         ],
-        justify=\"center\",
+        justify="center",
         gap=5,
     )
 
     mo.md(
-        f\"\"\"
-        <div style=\"background-color: #F1F5F9; padding: 10px; border-radius: 5px 20px 5px;\">
+        f"""
+        <div style="background-color: #F1F5F9; padding: 10px; border-radius: 5px 20px 5px;">
             {logos}
         </div>
-        \"\"\"
+        """
     )
 
 
-    """,
-    column=1, disabled=False, hide_code=False, name="_"
-)
+    return
 
 
 @app.cell
