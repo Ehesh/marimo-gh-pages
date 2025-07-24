@@ -79,13 +79,13 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 app._unparsable_cell(
     r"""
     s
-    with open(\"public/Assets/D_loan/map1.geojson", \"r\", encoding=\"utf-8\") as f:
+    with open("./public/Assets/D_loan/map1.geojson", \"r\", encoding=\"utf-8\") as f:
         map2 = json.load(f)
-    with open(\"public/Assets/D_loan/map2.geojson") as f:
+    with open("./public/Assets/D_loan/map2.geojson") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
-    icon_map2 = \"public/Assets/D_loan/icon_map2"
-    icon_map1 = \"public/Assets/D_loan/icon_map1"
+    icon_map2 = "./public/Assets/D_loan/icon_map2"
+    icon_map1 = "./public/Assets/D_loan/icon_map1"
 
     tooltip_map2 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Gave to:</strong><br>{{details}}\"
     tooltip_map1 = \"<strong>Name:</strong><br>{{from_language}}<br><strong>Received from:</strong><br>{{details}}\"
@@ -252,21 +252,21 @@ def _(mo):
         [
             mo.vstack(
                 [
-                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.image("src=\"public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
                     mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
+                    mo.image(src=\"public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
                     mo.md("[UNISON](https://www.unison.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="src=\"public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
+                    mo.image(src="\"public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
                     mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
                 ],
                 align="center",
