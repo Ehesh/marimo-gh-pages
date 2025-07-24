@@ -252,21 +252,21 @@ def _(mo):
         [
             mo.vstack(
                 [
-                    mo.image(src="\public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.image(src="public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
                     mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="\public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
+                    mo.image(src="./public/Assets/D_loan/logos/logo-unison.webp", width=130, height=150),
                     mo.md("[UNISON](https://www.unison.mx/)")
                 ],
                 align="center",
             ),
             mo.vstack(
                 [
-                    mo.image(src="\public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
+                    mo.image(src="/public/Assets/D_loan/logos/logo-DLL.webp", width=150, height=150),
                     mo.md("[Dept. Letras y Lingüística](https://letrasylinguistica.unison.mx/)")
                 ],
                 align="center",
