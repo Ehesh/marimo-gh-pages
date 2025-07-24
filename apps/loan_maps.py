@@ -252,7 +252,7 @@ def _(mo):
         [
             mo.vstack(
                 [
-                    mo.image("src=\"public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
+                    mo.image(src=\"public/Assets/D_loan/logos/logo-delfin.webp", width=150, height=150),
                     mo.md("[Programa Delfín](https://www.programadelfin.org.mx/)")
                 ],
                 align="center",
