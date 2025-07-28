@@ -78,10 +78,10 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 @app.cell
 def _(json):
-    with open("public/Assets/D_loan/map1.geojson", "r", encoding="utf-8") as f:
+    with open("https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map1.geojson", "r", encoding="utf-8") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
-    with open("public/Assets/D_loan/map2.geojson", "r", encoding="utf-8") as f:
+    with open("https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map2.geojson", "r", encoding="utf-8") as f:
         map2 = json.load(f)
 
     # icon_map1 = "./icon_map1/"
@@ -455,7 +455,7 @@ def _():
 
     The final maps were an entire chapter in themselves. My initial attempts used folium, because LLMs aren't very familiar with the py-openlayers library and I couldn’t find any examples (only the latest YouTube Short from the Marimo team). I managed to create the maps in HTML with custom pins with folium, but then I ran into Marimo examples of py-openlayers. I rewrote what I had in GeoJSON. The WOLD dataset was full of holes where geographical coordinates should have been, which led me on a "data scavenging mission" first integrating the Glottolog database and then using an LLM to generate plausible coordinates for extinct languages. I also had to redo somde of the code for the generation of the maps when I deployed it to github pages.
 
-    Looking back, this project taught me that modern data analysis is a process of creative problem-solving. It’s about embracing the learning curve and leveraging new technologies like AI to bridge the gap between an idea and execution.
+    Looking back, this project taught me that modern data analysis is a process of creative problem-solving. It’s about embracing the learning curve and leveraging new technologies like AI to bridge the gap between an idea and execution. The final hurdle came with deployment to GitHub Pages, where including assets proved challenging, leading me to use raw URLs for the map generation.
 
     ---
 
