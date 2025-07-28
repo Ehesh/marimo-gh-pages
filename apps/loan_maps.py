@@ -77,15 +77,20 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 
 @app.cell
-def _(json):
-    with open("https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map1.geojson", "r", encoding="utf-8") as f:
-        map1 = json.load(f)# import the json data to dictionaries
+def _():
+    # with open("map1.geojson", "r", encoding="utf-8") as f:
+    #     map1 = json.load(f)# import the json data to dictionaries
 
-    with open("https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map2.geojson", "r", encoding="utf-8") as f:
-        map2 = json.load(f)
+    # with open("map2.geojson", "r", encoding="utf-8") as f:
+    #     map2 = json.load(f)
 
     # icon_map1 = "./icon_map1/"
     # icon_map2 = "./icon_map2/"
+
+
+    map1 = "https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map1.geojson"
+    map2 = "https://raw.githubusercontent.com/Ehesh/marimo-gh-pages/main/apps/public/Assets/D_loan/map2.geojson"
+
 
     tooltip_map1 = "<strong>Name:</strong><br>{{from_language}}<br><strong>Received from:</strong><br>{{details}}"
     tooltip_map2 = "<strong>Name:</strong><br>{{from_language}}<br><strong>Gave to:</strong><br>{{details}}"
@@ -165,14 +170,15 @@ def _():
     import marimo as mo
     import openlayers as ol
     import json
+    import requests
     from collections import defaultdict
 
-    return defaultdict, json, mo, ol
+    return defaultdict, json, mo, ol, requests
 
 
 @app.cell
 def _(
-    create_map_from_urls,
+    create_map_from_url,
     icon_map1_urls,
     icon_map2_urls,
     map1,
@@ -180,8 +186,8 @@ def _(
     tooltip_map1,
     tooltip_map2,
 ):
-    m1 = create_map_from_urls(map1, icon_map1_urls, tooltip_map1)
-    m2 = create_map_from_urls(map2, icon_map2_urls, tooltip_map2)
+    m1 = create_map_from_url(map1, icon_map1_urls, tooltip_map1)
+    m2 = create_map_from_url(map2, icon_map2_urls, tooltip_map2)
     return m1, m2
 
 
@@ -241,35 +247,44 @@ def _():
 
 
 @app.cell
-def _(defaultdict, ol):
+def _(defaultdict, json, ol, requests):
 
 
-    def create_map_from_urls(geojson_data_dict, icon_urls, tooltip_template="<strong>Details</strong><br>{{details}}"):
+    def create_map_from_url(geojson_url, icon_urls, tooltip_template="<strong>Details</strong><br>{{details}}"):
         """
-        Creates a map from GeoJSON data, a list of icon URLs, and a tooltip template.
+        Fetches GeoJSON from a URL and creates a map with features styled by property.
 
         Args:
-            geojson_data_dict (dict): The Python dictionary of your GeoJSON data.
+            geojson_url (str): The raw URL to the GeoJSON file.
             icon_urls (list[str]): A list of full URLs to your .svg icons.
             tooltip_template (str): An HTML/Mustache string for the tooltip format.
 
         Returns:
             An OpenLayers map widget or None if an error occurs.
         """
+        # 1. Fetch data in Python to allow for processing
+        try:
+            response = requests.get(geojson_url, timeout=10)
+            response.raise_for_status()
+            geojson_data_dict = response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching data from URL: {e}")
+            return None
+        except json.JSONDecodeError:
+            print("Error: Failed to decode JSON from the response.")
+            return None
+
+        # 2. Group features by icon (same logic as before)
         if not icon_urls:
             print("Error: The 'icon_urls' list cannot be empty.")
             return None
 
-        # Create a dictionary mapping the filename to its full URL
         available_icons = {url.split('/')[-1]: url for url in icon_urls}
-
         grouped_features = defaultdict(list)
-        for feature in geojson_data_dict.get('features', []):
-            properties = feature.get('properties', {})
-            icon_filename = properties.get('icon_file')
 
+        for feature in geojson_data_dict.get('features', []):
+            icon_filename = feature.get('properties', {}).get('icon_file')
             if icon_filename and icon_filename in available_icons:
-                # The icon_src_url is the direct web URL from our list
                 icon_src_url = available_icons[icon_filename]
                 grouped_features[icon_src_url].append(feature)
             else:
@@ -279,11 +294,11 @@ def _(defaultdict, ol):
             print("Error: No features could be matched with the available icons.")
             return None
 
+        # 3. Create a separate layer for each icon group
         vector_layers = []
         for icon_url, features_in_group in grouped_features.items():
             group_geojson = {"type": "FeatureCollection", "features": features_in_group}
             vector_source = ol.VectorSource(geojson=group_geojson)
-            # ol.FlatStyle `icon_src` accepts web URLs directly
             style = ol.FlatStyle(icon_src=icon_url, icon_width=30, icon_height=30)
             vector_layer = ol.VectorLayer(source=vector_source, style=style)
             vector_layers.append(vector_layer)
@@ -292,11 +307,10 @@ def _(defaultdict, ol):
             ol.View(center=(0, 0), zoom=2),
             layers=[ol.BasemapLayer(), *vector_layers]
         )
-
         map_widget.add_tooltip(tooltip_template)
 
         return map_widget
-    return (create_map_from_urls,)
+    return (create_map_from_url,)
 
 
 @app.cell(column=1)
@@ -453,9 +467,9 @@ def _():
 
     Perhaps the most defining aspect of my workflow was partnering with a Large Language Model (LLM) for coding. This was less about asking for complete solutions and more like pair programming with an AI. My role shifted from understanding every line of code to clearly articulating my goals, describing the data’s structure, and then refining the AI generated code. It required careful prompting and debugging, but it dramatically accelerated my ability to implement complex ideas, especially when it came to visualization.
 
-    The final maps were an entire chapter in themselves. My initial attempts used folium, because LLMs aren't very familiar with the py-openlayers library and I couldn’t find any examples (only the latest YouTube Short from the Marimo team). I managed to create the maps in HTML with custom pins with folium, but then I ran into Marimo examples of py-openlayers. I rewrote what I had in GeoJSON. The WOLD dataset was full of holes where geographical coordinates should have been, which led me on a "data scavenging mission" first integrating the Glottolog database and then using an LLM to generate plausible coordinates for extinct languages. I also had to redo somde of the code for the generation of the maps when I deployed it to github pages.
+    The final maps were an entire chapter in themselves. My initial attempts used folium, because LLMs aren't very familiar with the py-openlayers library and I couldn’t find any examples (only the latest YouTube Short from the Marimo team). I managed to create the maps in HTML with custom pins with folium, but then I ran into Marimo examples of py-openlayers. I rewrote what I had in GeoJSON. The WOLD dataset was full of holes where geographical coordinates should have been, which led me on a "data scavenging mission" first integrating the Glottolog database and then using an LLM to generate plausible coordinates for extinct languages. Finally, for deployment to GitHub Pages, I had to adjust the map generation code to rely on raw URLs due to difficulties with asset inclusion.
 
-    Looking back, this project taught me that modern data analysis is a process of creative problem-solving. It’s about embracing the learning curve and leveraging new technologies like AI to bridge the gap between an idea and execution. The final hurdle came with deployment to GitHub Pages, where including assets proved challenging, leading me to use raw URLs for the map generation.
+    Looking back, this project taught me that modern data analysis is a process of creative problem-solving. It’s about embracing the learning curve and leveraging new technologies like AI to bridge the gap between an idea and execution.
 
     ---
 
