@@ -78,10 +78,10 @@ def _(m1, m2, map1_description, map1_label, map2_description, map2_label, mo):
 
 @app.cell
 def _(json):
-    with open(mo.notebook_location() / "public" / "Assets" / "D_loan" / "map1.geojson", "r", encoding="utf-8") as f:
+    with open("public/Assets/D_loan/icon_map1/map1.geojson", "r", encoding="utf-8") as f:
         map1 = json.load(f)# import the json data to dictionaries
 
-    with open(mo.notebook_location() / "public" / "Assets" / "D_loan" / "map2.geojson", "r", encoding="utf-8") as f:
+    with open("public/Assets/D_loan/icon_map1/map2.geojson", "r", encoding="utf-8") as f:
         map2 = json.load(f)
 
     # icon_map1 = "./icon_map1/"
@@ -136,7 +136,7 @@ def _(json):
         'Indonesian_Japanese_Romanian_SeliceRomani.svg',
         'Indonesian_Romanian.svg',
         'Indonesian_SeliceRomani.svg',
-        'Japanese.',
+        'Japanese.svg',
         'Japanese_Romanian.svg',
         'Japanese_Romanian_SeliceRomani.svg',
         'Japanese_SeliceRomani.svg',
@@ -453,7 +453,7 @@ def _():
 
     Perhaps the most defining aspect of my workflow was partnering with a Large Language Model (LLM) for coding. This was less about asking for complete solutions and more like pair programming with an AI. My role shifted from understanding every line of code to clearly articulating my goals, describing the data’s structure, and then refining the AI generated code. It required careful prompting and debugging, but it dramatically accelerated my ability to implement complex ideas, especially when it came to visualization.
 
-    The final maps were an entire chapter in themselves. My initial attempts used folium, because LLMs aren't very familiar with the py-openlayers library and I couldn’t find any examples (only the latest YouTube Short from the Marimo team). I managed to create the maps in HTML with custom pins with folium, but then I ran into Marimo examples of py-openlayers. I rewrote what I had in GeoJSON. The WOLD dataset was full of holes where geographical coordinates should have been, which led me on a "data scavenging mission" first integrating the Glottolog database and then using an LLM to generate plausible coordinates for extinct languages.
+    The final maps were an entire chapter in themselves. My initial attempts used folium, because LLMs aren't very familiar with the py-openlayers library and I couldn’t find any examples (only the latest YouTube Short from the Marimo team). I managed to create the maps in HTML with custom pins with folium, but then I ran into Marimo examples of py-openlayers. I rewrote what I had in GeoJSON. The WOLD dataset was full of holes where geographical coordinates should have been, which led me on a "data scavenging mission" first integrating the Glottolog database and then using an LLM to generate plausible coordinates for extinct languages. I also had to redo somde of the code for the generation of the maps when I deployed it to github pages.
 
     Looking back, this project taught me that modern data analysis is a process of creative problem-solving. It’s about embracing the learning curve and leveraging new technologies like AI to bridge the gap between an idea and execution.
 
@@ -470,6 +470,16 @@ def _():
     - OpenLayers for python examples: https://eoda-dev.github.io/py-openlayers/
     """
     return AN, General_conclusions, Methodology, Problem_statement, References
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _():
+    return
 
 
 if __name__ == "__main__":
