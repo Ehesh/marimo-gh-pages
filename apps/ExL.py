@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.14.13"
+__generated_with = "0.14.15"
 app = marimo.App(width="full")
 
 
@@ -43,44 +43,144 @@ def _(mo):
 
 
 @app.cell
-def _(file_upload, mo, set_matches, yaml):
+def _():
+    # Data for the "Zapotec example" option
+    ZAPOTEC_DATA = {
+        "matches": [
+            {"trigger": "1a", "replace": "à", "propagate_case": True},
+            {"trigger": "2a", "replace": "á", "propagate_case": True},
+            {"trigger": "3a", "replace": "a̋", "propagate_case": True},
+            {"trigger": "4a", "replace": "â", "propagate_case": True},
+            {"trigger": "5a", "replace": "ǎ", "propagate_case": True},
+            {"trigger": "1e", "replace": "è", "propagate_case": True},
+            {"trigger": "2e", "replace": "é", "propagate_case": True},
+            {"trigger": "3e", "replace": "̋e̋", "propagate_case": True},
+            {"trigger": "4e", "replace": "̂ê", "propagate_case": True},
+            {"trigger": "5e", "replace": "ě", "propagate_case": True},
+            {"trigger": "1i", "replace": "ì", "propagate_case": True},
+            {"trigger": "2i", "replace": "í", "propagate_case": True},
+            {"trigger": "3i", "replace": "i̋", "propagate_case": True},
+            {"trigger": "4i", "replace": "î", "propagate_case": True},
+            {"trigger": "5i", "replace": "ǐ", "propagate_case": True},
+            {"trigger": "1o", "replace": "ò", "propagate_case": True},
+            {"trigger": "2o", "replace": "ó", "propagate_case": True},
+            {"trigger": "3o", "replace": "ő", "propagate_case": True},
+            {"trigger": "4o", "replace": "ô", "propagate_case": True},
+            {"trigger": "5o", "replace": "̌ǒ", "propagate_case": True},
+            {"trigger": "1u", "replace": "ù", "propagate_case": True},
+            {"trigger": "2u", "replace": "ú", "propagate_case": True},
+            {"trigger": "3u", "replace": "ű", "propagate_case": True},
+            {"trigger": "4u", "replace": "û", "propagate_case": True},
+            {"trigger": "5u", "replace": "ǔ", "propagate_case": True},
+            {"trigger": "1:e", "replace": "ë̀", "propagate_case": True},
+            {"trigger": "2:e", "replace": "ë́", "propagate_case": True},
+            {"trigger": "3:e", "replace": "ë̋", "propagate_case": True},
+            {"trigger": "4:e", "replace": "ë̂", "propagate_case": True},
+            {"trigger": "5:e", "replace": "ë̌", "propagate_case": True},
+            {"trigger": ":e", "replace": "ë", "propagate_case": True},
+            {"trigger": "_Ch", "replace": "C̲h̲", "propagate_case": True},
+            {"trigger": "_ch", "replace": "c̲h̲", "propagate_case": True},
+            {"trigger": "_t", "replace": "ṯ", "propagate_case": True},
+            {"trigger": "_x", "replace": "x̱", "propagate_case": True},
+            {"trigger": "@1", "replace": "̀\u00A0 "},
+            {"trigger": "@2", "replace": "́\u00A0 "},
+            {"trigger": "@3", "replace": "̋\u00A0 "},
+            {"trigger": "@4", "replace": "̌\u00A0 "},
+            {"trigger": "@5", "replace": "̂\u00A0 "},
+        ]
+    }
 
-    # Final cell for processing and display
-    if file_upload.value:
-        try:
-            filename = file_upload.name()
-            content = file_upload.contents()
-            data = yaml.safe_load(content)
-
-            if not isinstance(data, dict) or "matches" not in data:
-                status_message = mo.md(
-                    f"❌ **Invalid Format.** File `{filename}` is missing the 'matches' key."
-                )
-            else:
-                value_from_yaml = data["matches"]
-
-                # Use the setter function to update the state's value
-                set_matches(value_from_yaml)
-
-                status_message = mo.md(
-                    f"✅ **Success!** Loaded {len(value_from_yaml)} match(es) from `{filename}`"
-                )
-
-        except Exception as e:
-            status_message = mo.md(f"❌ **An unexpected error occurred:** `{e}`")
-    else:
-        status_message = mo.md("📂 **Upload an Espanso YAML file to begin.**")
-
-
-    return (status_message,)
+    # Data for the "IPA vowel example" option
+    IPA_VOWEL_DATA = {
+        "matches": [
+            {"trigger": ":ee", "replace": "ɛ", "label": "Open-mid front unrounded vowel"},
+            {"trigger": ":c", "replace": "ɔ", "label": "Open-mid back rounded vowel"},
+            {"trigger": ":0", "replace": "ø", "label": "Close-mid front rounded vowel"},
+            {"trigger": ":oe", "replace": "œ", "label": "Open-mid front rounded vowel"},
+            {"trigger": ":w", "replace": "ɯ", "label": "Close back unrounded vowel"},
+            {"trigger": ":y", "replace": "ɤ", "label": "Close-mid back unrounded vowel"},
+            {"trigger": ":v", "replace": "ʌ", "label": "Open-mid back unrounded vowel"},
+            {"trigger": ":a", "replace": "ɑ", "label": "Open back unrounded vowel"},
+            {"trigger": ":av", "replace": "ɒ", "label": "Open back rounded vowel"},
+            {"trigger": ":ad", "replace": "ɐ", "label": "Near-open central vowel"},
+            {"trigger": ":I", "replace": "ɪ", "label": "Near-close near-front unrounded vowel"},
+            {"trigger": ":Y", "replace": "ʏ", "label": "Near-close near-front rounded vowel"},
+            {"trigger": ":ou", "replace": "ʊ", "label": "Near-close near-back rounded vowel"},
+            {"trigger": ":e-", "replace": "ə", "label": "Mid central vowel (schwa)"},
+            {"trigger": ":e<", "replace": "ɘ", "label": "Close-mid central unrounded vowel"},
+            {"trigger": ":-o", "replace": "ɵ", "label": "Close-mid central rounded vowel"},
+            {"trigger": ":3", "replace": "ɜ", "label": "Open-mid central unrounded vowel"},
+            {"trigger": ":B", "replace": "ɞ", "label": "Open-mid central rounded vowel"},
+            {"trigger": ":ae", "replace": "æ", "label": "Near-open front unrounded vowel"},
+            {"trigger": ":ae+", "replace": "ɶ", "label": "Open front rounded vowel"},
+        ]
+    }
+    return IPA_VOWEL_DATA, ZAPOTEC_DATA
 
 
 @app.cell
-def _(file_upload, mo, status_message):
-    mo.vstack([
-        file_upload,
-        status_message
-    ])
+def _(IPA_VOWEL_DATA, ZAPOTEC_DATA, file_upload, mo, radio, set_matches, yaml):
+    # Initialize variables to hold the results of the logic
+    matches_source = None
+    status_ui = None
+
+    # Determine the source of matches based on the radio button
+    if radio.value == "Zapotec example":
+        matches_source = ZAPOTEC_DATA["matches"]
+        status_ui = mo.vstack([mo.md(
+            f"✅ **Loaded:** {len(matches_source)} built-in Zapotec matches."
+        ),mo.callout(mo.md("**NOTE**: There are some issues with rendering some diachritic marks such as grave accent **`** and acute accent **´**"), kind="info")]) 
+
+    elif radio.value == "IPA vowel example":
+        matches_source = IPA_VOWEL_DATA["matches"]
+        status_ui = mo.md(
+            f"✅ **Loaded:** {len(matches_source)} built-in IPA vowel matches."
+        )
+
+    elif radio.value == "Custom":
+        # In "Custom" mode, the UI is the file uploader and a status message
+        message = "📂 **Upload an Espanso YAML file to begin.**"
+        if file_upload.value:
+            try:
+                filename = file_upload.name()
+                content = file_upload.contents()
+                data = yaml.safe_load(content)
+
+                if isinstance(data, dict) and "matches" in data:
+                    matches_source = data["matches"]
+                    message = f"✅ **Success!** Loaded {len(matches_source)} match(es) from `{filename}`."
+                else:
+                    message = f"❌ **Invalid Format.** File `{filename}` is missing the 'matches' key."
+            except Exception as e:
+                message = f"❌ **An unexpected error occurred:** `{e}`"
+
+        status_ui = mo.vstack([file_upload, mo.md(message)])
+
+    # Update the global state. Defaults to an empty list if no source was found.
+    set_matches(matches_source or [])
+
+    # You can now display the radio button and the status UI together in a final cell.
+    # Example: mo.vstack([radio, status_ui])
+    return (status_ui,)
+
+
+@app.cell
+def _(mo):
+    options = ["Zapotec example", "IPA vowel example", "Custom"]
+    radio = mo.ui.radio(options=options)
+    return (radio,)
+
+
+@app.cell
+def _(mo, radio, status_ui):
+    mo.vstack([radio, status_ui])
+    return
+
+
+@app.cell
+def _(mo):
+    Warning = mo.callout(mo.md("**Reminder**: changing between options resets the current workspace below meaning you may loose data if not downloaded"), kind="danger")
+    Warning
     return
 
 
@@ -174,21 +274,6 @@ def _(
         ]
         set_matches(new_matches)
     return handle_delete, handle_edit_and_remove
-
-
-@app.cell
-def _():
-                # "actions": mo.hstack([mo.ui.button(
-                #     label="Edit",
-                #     value=i,  # Assign the row index to the button's value
-                #     on_click=handle_edit_and_remove,  # Pass the handler directly
-                # ), mo.ui.button(
-                #     label="Delete",
-                #     value=i,  # Assign the row index to the button's value
-                #     on_click=handle_delete,  # Pass the handler directly
-                #     kind="danger",
-                # )], justify="start", gap=1),
-    return
 
 
 @app.cell
@@ -293,9 +378,9 @@ def _(yaml):
         """
         if not matches_data:
             return ""
-    
+
         export_data = {"matches": matches_data}
-    
+
         # allow_unicode=True ensures special characters are not escaped.
         return yaml.dump(
             export_data,
