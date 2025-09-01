@@ -115,21 +115,20 @@ def _(Dict, EricDocument, ErrorDict, List, Union, mo):
         formatted_docs = []
         for doc in docs:
             # Determine the URL and link text based on full-text availability
-            if doc.e_fulltextauth and doc.id != "N/A":
+            if doc.url == "N/A":
                 url = f"https://files.eric.ed.gov/fulltext/{doc.id}.pdf"
-                link_text = "View Full Text (PDF)"
-            elif doc.url and doc.url != "N/A":
+            elif doc.url != "N/A":
                 url = doc.url
-                link_text = "View on ERIC"
             else:
                 url = None
 
             formatted_docs.append({
                 "Title": doc.title,
                 "Authors": "\n".join(doc.authors) if doc.authors else "N/A",
-                "Abstract": doc.description,
                 "Date": doc.publication_date,
-                "URL": f"[{link_text}]({url})" if url else "N/A",
+                "Abstract": doc.description,
+                "URL": f"{url}" if url else "N/A",
+                "id": doc.id,
             })
         return formatted_docs
 
@@ -156,10 +155,9 @@ def _(Dict, EricDocument, ErrorDict, List, Union, mo):
             pagination=True,
             page_size=10,
             label="Search Results",
-            wrapped_columns=["Title","Abstract"]
+            wrapped_columns=["Title","Abstract", "Authors"],
+            show_download= True
 
-            # Allow wrapping for long abstracts
-     #       cell_styles={"Abstract": {"text-wrap": "wrap"}},
         )
     return (render_results,)
 
@@ -190,6 +188,11 @@ def _(
     )
 
     app_layout
+    return
+
+
+@app.cell
+def _():
     return
 
 
