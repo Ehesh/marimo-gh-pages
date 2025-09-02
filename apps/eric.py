@@ -6,16 +6,17 @@ app = marimo.App(width="full")
 
 @app.cell
 def _():
-    import marimo as mo
-    return (mo,)
-
-
-@app.cell
-def _():
     import dataclasses
+    import io
     import requests
     import urllib.parse
     from typing import List, Dict, Union, TypedDict
+
+    import marimo as mo
+    import polars as pl
+
+    # A type hint for the error dictionary structure
+    ErrorDict = TypedDict("ErrorDict", {"error": str})
 
     # A structured representation of a search result
     @dataclasses.dataclass
@@ -25,7 +26,7 @@ def _():
         id: str
         url: str
         e_fulltextauth: bool
-        publication_date: str = "N/A"
+        publication_date: str = "N-A"
         authors: List[str] = dataclasses.field(default_factory=list)
 
         @classmethod
@@ -38,16 +39,11 @@ def _():
                 publication_date=data.get("publicationdateyear", "N/A"),
                 url=data.get("url", "N/A"),
                 id=data.get("id", "N/A"),
-                # Correctly parse the boolean flag from the API's string response
                 e_fulltextauth=data.get("e_fulltextauth") == "1",
             )
-    # A type hint for the error dictionary structure
-    ErrorDict = TypedDict("ErrorDict", {"error": str})
-    return Dict, EricDocument, ErrorDict, List, Union, requests
 
+    # --- All Function Definitions ---
 
-@app.cell
-def _(EricDocument, ErrorDict, List, Union, requests):
     def fetch_eric_data(
         query: str, num_rows: str
     ) -> Union[List[EricDocument], ErrorDict]:
@@ -56,11 +52,12 @@ def _(EricDocument, ErrorDict, List, Union, requests):
             return {"error": "Search query cannot be empty."}
 
         base_url = "https://api.ies.ed.gov/eric/"
+        fields_to_request = "id,title,author,description,publicationdateyear,url,e_fulltextauth"
         api_params = {
             "search": query,
             "format": "json",
             "rows": num_rows,
-            "fields": "title,author,description,publicationdateyear,id,url,e_fulltextauth",
+            "fields": fields_to_request,
         }
 
         try:
@@ -77,23 +74,54 @@ def _(EricDocument, ErrorDict, List, Union, requests):
         except ValueError:
             return {"error": "Failed to decode the JSON response from the server."}
 
-    return (fetch_eric_data,)
+
+    def format_documents_for_table(docs: List[EricDocument]) -> List[Dict]:
+        """Transforms EricDocument objects into a list of dicts for mo.ui.table."""
+        formatted_docs = []
+        for doc in docs:
+            if doc.url == "N/A":
+                url = f"https://files.eric.ed.gov/fulltext/{doc.id}.pdf"
+            elif doc.url != "N/A":
+                url = doc.url
+            else:
+                url = None
+
+            formatted_docs.append({
+                "Title": doc.title,
+                "Authors": "\n".join(doc.authors) if doc.authors else "N/A",
+                "Abstract": doc.description,
+                "Date": doc.publication_date,
+                "URL": f"{url}" if url else "N/A",
+    #            "ID": doc.id,
+            })
+        return formatted_docs
+    return (
+        EricDocument,
+        ErrorDict,
+        List,
+        Union,
+        fetch_eric_data,
+        format_documents_for_table,
+        io,
+        mo,
+        pl,
+    )
 
 
 @app.cell
 def _(fetch_eric_data, mo):
-    # UI Elements
-    search_query = mo.ui.text(label="Search Query")
-    results_dropdown = mo.ui.dropdown(
-        options=["20", "50", "100"], label="Number of results",value= "20"
-    )
-
     # State for results and loading status
     results, set_results = mo.state(None)
     loading, set_loading = mo.state(False)
 
+    # UI Elements
+    search_query = mo.ui.text(label="Search Query")
+    results_dropdown = mo.ui.dropdown(
+        options=["20", "50", "100"], label="Number of results", value="20"
+    )
+
     def perform_search() -> None:
-        """Fetches search results and updates the application state."""
+        """Function to be called on button click to fetch data."""
         set_loading(True)
         try:
             query = search_query.value
@@ -105,47 +133,39 @@ def _(fetch_eric_data, mo):
     search_button = mo.ui.button(
         label="Search", on_click=lambda _: perform_search()
     )
-    return loading, results, results_dropdown, search_button, search_query
+
+    # Group UI controls together
+    ui_controls = mo.vstack(
+        [
+            search_query,
+            results_dropdown,
+            search_button,
+        ]
+    )
+    return loading, results, ui_controls
 
 
 @app.cell
-def _(Dict, EricDocument, ErrorDict, List, Union, mo):
-    def format_documents_for_table(docs: List[EricDocument]) -> List[Dict]:
-        """Transforms EricDocument objects into a list of dicts for mo.ui.table."""
-        formatted_docs = []
-        for doc in docs:
-            # Determine the URL and link text based on full-text availability
-            if doc.url == "N/A":
-                url = f"https://files.eric.ed.gov/fulltext/{doc.id}.pdf"
-            elif doc.url != "N/A":
-                url = doc.url
-            else:
-                url = None
-
-            formatted_docs.append({
-                "Title": doc.title,
-                "Authors": "\n".join(doc.authors) if doc.authors else "N/A",
-                "Date": doc.publication_date,
-                "Abstract": doc.description,
-                "URL": f"{url}" if url else "N/A",
-                "id": doc.id,
-            })
-        return formatted_docs
-
-
-    def render_results(
+def _(
+    EricDocument,
+    ErrorDict,
+    List,
+    Union,
+    format_documents_for_table,
+    loading,
+    mo,
+    results,
+):
+    def create_results_table(
         is_loading: bool, search_results: Union[List[EricDocument], ErrorDict, None]
     ):
-        """Renders the output based on the current application state."""
+        """Renders a status message or the results table."""
         if is_loading:
             return mo.md("--- \n*Loading...*")
-
         if search_results is None:
             return mo.md("Enter a query and click Search to begin.")
-
         if isinstance(search_results, dict) and "error" in search_results:
             return mo.ui.callout(search_results["error"], kind="danger")
-
         if not search_results:
             return mo.md("No results found for your query.")
 
@@ -155,44 +175,51 @@ def _(Dict, EricDocument, ErrorDict, List, Union, mo):
             pagination=True,
             page_size=10,
             label="Search Results",
-            wrapped_columns=["Title","Abstract", "Authors"],
-            show_download= True
-
+            selection="multi",
+            wrapped_columns=["Title", "Abstract"],
         )
-    return (render_results,)
+
+    results_table = create_results_table(loading(), results())
+    return (results_table,)
 
 
 @app.cell
-def _(
-    loading,
-    mo,
-    render_results,
-    results,
-    results_dropdown,
-    search_button,
-    search_query,
-):
-    ui_controls = mo.vstack(
-        [
-            search_query,
-            results_dropdown,
-            search_button,
-        ]
-    )
+def _(io, mo, pl, results_table):
+    def create_download_component(table_output):
+        """Creates a download component based on the table's selected rows."""
+        if not hasattr(table_output, "value") or not table_output.value:
+            return mo.ui.button(label="Download Selected as CSV", disabled=True)
+
+        selected_rows = table_output.value
+        df = pl.DataFrame(selected_rows)
+    
+        buffer = io.BytesIO()
+        df.write_csv(buffer)
+        csv_data = buffer.getvalue()
+
+        return mo.download(
+            data=csv_data,
+            filename="eric_selection.csv",
+            mimetype="text/csv",
+            label="Download Selected as CSV",
+        )
+
+    download_control = create_download_component(results_table)
+    return (download_control,)
+
+
+@app.cell
+def _(download_control, mo, results_table, ui_controls):
     app_layout = mo.vstack(
         [
-            mo.md("# ERIC Search Engine constructivism"),
+            mo.md("# ERIC Search Engine"),
             ui_controls,
-            render_results(loading(), results()),
+            results_table,
+            download_control,
         ]
     )
 
     app_layout
-    return
-
-
-@app.cell
-def _():
     return
 
 
