@@ -33,6 +33,19 @@ def _():
     from collections import defaultdict
 
     import plotly.graph_objects as go
+        # Works both locally and on GitHub Pages WASM
+    try:
+        # 1. Try fetching via HTTP (works in WASM / App Mode on GitHub Pages)
+        import js
+        from pyodide.http import open_url
+    
+        response = open_url("./public/slides_layout.json")
+        slides_data = json.loads(response.read())
+    
+    except ImportError:
+        # 2. Fallback to standard local file reading (for local notebook dev)
+        with open("apps/public/slides_layout.json", "r") as f:
+            slides_data = json.load(f)
 
 
     return alt, defaultdict, go, html, io, json, mo, pl, re, urllib
